@@ -11,16 +11,18 @@
 </head>
 
 <body>
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">WEATHER DASHBOARD</a>
-        </nav>
-    </div>
+    <h1>Weather Dashboard</h1>
     <style>
-        .a {
+        h1 {
             text-align: center;
+
+        }
+
+        .card {
+            float: left;
         }
     </style>
+
     <h2>Search for a City:</h2>
     <nav class="navbar navbar-light bg-light">
         <form class="form-inline">
@@ -32,6 +34,23 @@
     <!-- https://openweathermap.org/api -->
     <!-- https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API
     the above is for the geolocator if I can figure out how to use it -->
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">City and Date</h5>
+
+            <p class="card-text">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Temp: </li>
+                    <li class="list-group-item">Humidity: </li>
+                    <li class="list-group-item">Wind Speed: </li>
+                    <li class="list-group-item">UV Index: </li>
+                </ul>
+            </p>
+
+        </div>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <!-- Try to use something else other than all these breaks -->
     <div id="current">
         <div class="city"></div>
         <div class="date"></div>
@@ -53,78 +72,114 @@ name should perform a new search that returns current and future conditions for 
         <div class="card" style="width: 18rem;">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
-                <p class="card-text">Day One</p>
+                <h5 class="card-title">Day One</h5>
+                <p class="card-text">Think of something to go in here </p>
             </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Temp: </li>
+                <li class="list-group-item">Humidity: </li>
+            </ul>
+        </div>
+
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Day One</h5>
+                <p class="card-text">Think of something to go in here </p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Temp: </li>
+                <li class="list-group-item">Humidity: </li>
+            </ul>
         </div>
         <div class="card" style="width: 18rem;">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
-                <p class="card-text">Day Two</p>
+                <h5 class="card-title">Day Two</h5>
+                <p class="card-text">Think of something to go in here </p>
             </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Temp: </li>
+                <li class="list-group-item">Humidity: </li>
+            </ul>
         </div>
         <div class="card" style="width: 18rem;">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
-                <p class="card-text">Day Three</p>
+                <h5 class="card-title">Day Three</h5>
+                <p class="card-text">Think of something to go in here </p>
             </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Temp: </li>
+                <li class="list-group-item">Humidity: </li>
+            </ul>
         </div>
         <div class="card" style="width: 18rem;">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
-                <p class="card-text">Day Four</p>
+                <h5 class="card-title">Day Four</h5>
+                <p class="card-text">Think of something to go in here </p>
             </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Temp: </li>
+                <li class="list-group-item">Humidity: </li>
+            </ul>
         </div>
         <div class="card" style="width: 18rem;">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
-                <p class="card-text">Day Five</p>
+                <h5 class="card-title">Day Five</h5>
+                <p class="card-text">Think of something to go in here </p>
             </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Temp: </li>
+                <li class="list-group-item">Humidity: </li>
+            </ul>
         </div>
-    </div>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        // This is Carina's personal API key
-        var APIKey = "a4af8bd3c9453f28d775a17a4db79327";
 
-        // Here we are building the URL we need to query the database
-        var queryURL = "https://api.openweathermap.org/data/2.5/weather?" + APIKey;
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            // This is Carina's personal API key
+            var APIKey = "a4af8bd3c9453f28d775a17a4db79327";
 
-        // Here we run our AJAX call to the OpenWeatherMap API
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        })
-            // We store all of the retrieved data inside of an object called "response"
-            .then(function (response) {
+            // Here we are building the URL we need to query the database
+            var queryURL = "https://api.openweathermap.org/data/2.5/weather?" + APIKey;
 
-                // Log the queryURL
-                console.log(queryURL);
+            // Here we run our AJAX call to the OpenWeatherMap API
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            })
+                // We store all of the retrieved data inside of an object called "response"
+                .then(function (response) {
 
-                // Log the resulting object
-                console.log(response);
+                    // Log the queryURL
+                    console.log(queryURL);
 
-                // Transfer content to HTML
-                $(".city").html("<h1>" + response.name + " Weather Details</h1>");
-                $(".wind").text("Wind Speed: " + response.wind.speed);
-                $(".humidity").text("Humidity: " + response.main.humidity);
-                $(".temp").text("Temperature (F) " + response.main.temp);
+                    // Log the resulting object
+                    console.log(response);
 
-                // Log the data in the console as well
-                console.log("Wind Speed: " + response.wind.speed);
-                console.log("Humidity: " + response.main.humidity);
-                console.log("Temperature (F): " + response.main.temp);
-            });
-    </script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+                    // Transfer content to HTML
+                    $(".city").html("<h1>" + response.name + " Weather Details</h1>");
+                    $(".wind").text("Wind Speed: " + response.wind.speed);
+                    $(".humidity").text("Humidity: " + response.main.humidity);
+                    $(".temp").text("Temperature (F) " + response.main.temp);
+
+                    // Log the data in the console as well
+                    console.log("Wind Speed: " + response.wind.speed);
+                    console.log("Humidity: " + response.main.humidity);
+                    console.log("Temperature (F): " + response.main.temp);
+                });
+        </script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 </body>
 
 </html>
