@@ -8,6 +8,7 @@ var lat = 51.51;
 var lon = -0.13;
 var queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + lat + "&lon=" + lon;
 var fullDate = new Date()
+//change date format - do not like
 var queryURLFive = "https://api.openweathermap.org/data/2.5/forecast?q=" + "Denver" +"&units=imperial&appid=" + APIKey;
 
 document.getElementById("btn").addEventListener("click", query);
@@ -61,10 +62,23 @@ function query() {
         .then(function (response) {
             console.log(queryURLFive);
             console.log(response);
-            //this could use a for loop to get the array of temps
+            //Need to update the date to be incremental and change format
+            //this could use a for loop to get the array of temps/humidity
 
             $("#temp1").text("Temperature (F) " + response.list[0].main.temp);
             $("#hum1").text("Humidity: " + response.list[0].main.humidity);
+
+            $("#temp2").text("Temperature (F) " + response.list[1].main.temp);
+            $("#hum2").text("Humidity: " + response.list[1].main.humidity);
+
+            $("#temp3").text("Temperature (F) " + response.list[2].main.temp);
+            $("#hum3").text("Humidity: " + response.list[2].main.humidity);
+
+            $("#temp4").text("Temperature (F) " + response.list[3].main.temp);
+            $("#hum4").text("Humidity: " + response.list[3].main.humidity);
+
+            $("#temp5").text("Temperature (F) " + response.list[4].main.temp);
+            $("#hum5").text("Humidity: " + response.list[4].main.humidity);
 
             console.log("Temperature: " + response.list[0].main.temp);
             console.log("Humidity: " + response.list[0].main.humidity);
