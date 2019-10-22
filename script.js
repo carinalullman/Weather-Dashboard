@@ -1,17 +1,13 @@
 
 const APIKey = "a4af8bd3c9453f28d775a17a4db79327";
+const APIKeyOpenCage = "44188c039a434944afbe3ebfd7112f4d";
 var lat;
 var lon;
-navigator.geolocation.getCurrentPosition(function (position) {
-    lat = position.coords.latitude;
-    lon = position.coords.longitude;
+// navigator.geolocation.getCurrentPosition(function (position) {
+//     lat = position.coords.latitude;
+//     lon = position.coords.longitude;
 
-});
-//don't hard code the lon & lat but works for now
-
-
-
-
+// });
 var d = new Date();
 var weekday = new Array(7);
 weekday[0] = "Sunday";
@@ -29,26 +25,39 @@ console.log(n);
 document.getElementById("btn").addEventListener("click", query);
 
 function query() {
-    var queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + lat + "&lon=" + lon;
+
+    var city = document.getElementById("citysearch").value;
+    var queryURLLatLng = "https://api.opencagedata.com/geocode/v1/json?q=" + city + "&key=" + APIKeyOpenCage;
     $.ajax({
-        url: queryURLUV,
+        url: queryURLLatLng,
         method: "GET"
     })
         .then(function (response) {
-            console.log(queryURLUV);
+            console.log(queryURLLatLng);
             console.log(response);
-            $(".UV").html("UV Index: " + response.value);
 
+            lat = response.results[0].geometry.lat;
+            lon = response.results[0].geometry.lng;
+            var queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + lat + "&lon=" + lon;
+            $.ajax({
+                url: queryURLUV,
+                method: "GET"
+            })
+                .then(function (response) {
+                    console.log(queryURLUV);
+                    console.log(response);
+                    $(".UV").html("UV Index: " + response.value);
+
+                });
         });
-    var city = document.getElementById("citysearch").value;
-
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + APIKey;
     console.log(city);
+
     $.ajax({
         url: queryURL,
         method: "GET"
     })
-        // We store all of the retrieved data inside of an object called "response"
+
         .then(function (response) {
 
             // Log the queryURL
