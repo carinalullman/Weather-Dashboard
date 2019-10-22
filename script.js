@@ -1,14 +1,16 @@
 
-var APIKey = "a4af8bd3c9453f28d775a17a4db79327";
-//var city = $(this).attr("citysearch");
-//var city = document.getElementById("citysearch").value;
-//can't get the either of the above code to work so I'm just hard coding Denver for the time being
-var lat = 51.51;
-var lon = -0.13;
+const APIKey = "a4af8bd3c9453f28d775a17a4db79327";
+var lat;
+var lon;
+navigator.geolocation.getCurrentPosition(function (position) {
+    lat = position.coords.latitude;
+    lon = position.coords.longitude;
+
+});
 //don't hard code the lon & lat but works for now
-var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + "Denver" + "&units=imperial&appid=" + APIKey;
-var queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + lat + "&lon=" + lon;
-var queryURLFive = "https://api.openweathermap.org/data/2.5/forecast?q=" + "Denver" + "&units=imperial&appid=" + APIKey;
+
+
+
 
 var d = new Date();
 var weekday = new Array(7);
@@ -27,6 +29,21 @@ console.log(n);
 document.getElementById("btn").addEventListener("click", query);
 
 function query() {
+    var queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + lat + "&lon=" + lon;
+    $.ajax({
+        url: queryURLUV,
+        method: "GET"
+    })
+        .then(function (response) {
+            console.log(queryURLUV);
+            console.log(response);
+            $(".UV").html("UV Index: " + response.value);
+
+        });
+    var city = document.getElementById("citysearch").value;
+
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + APIKey;
+    console.log(city);
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -42,17 +59,14 @@ function query() {
 
             // Transfer content to HTML
             $(".city").html("<h1>" + response.name + " Weather Details</h1>");
-            //date
+
             $(".temp").text("Temperature (F): " + response.main.temp);
             $(".humidity").text("Humidity: " + response.main.humidity);
             $(".wind").text("Wind Speed: " + response.wind.speed);
             $("#day").text(n);
+            $("h3").text("5-Day Forecast for " + city);
 
-            $(".card-title1").text(n);
-            $(".card-title2").text(n);
-            $(".card-title3").text(n);
-            $(".card-title4").text(n);
-            $(".card-title5").text(n);
+
 
 
             // Log the data in the console as well
@@ -62,17 +76,8 @@ function query() {
         });
 
 
-    $.ajax({
-        url: queryURLUV,
-        method: "GET"
-    })
-        .then(function (response) {
-            console.log(queryURLUV);
-            console.log(response);
-            $(".UV").html("UV Index: " + response.value);
 
-        });
-
+    var queryURLFive = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&appid=" + APIKey;
     $.ajax({
         url: queryURLFive,
         method: "GET"
@@ -81,8 +86,12 @@ function query() {
         .then(function (response) {
             console.log(queryURLFive);
             console.log(response);
-            //Need to update the date to be incremental and change format
-            //this could use a for loop to get the array of temps/humidity
+            $(".card-title1").text(weekday[(d.getDay() + 1) % 7]);
+            $(".card-title2").text(weekday[(d.getDay() + 2) % 7]);
+            $(".card-title3").text(weekday[(d.getDay() + 3) % 7]);
+            $(".card-title4").text(weekday[(d.getDay() + 4) % 7]);
+            $(".card-title5").text(weekday[(d.getDay() + 5) % 7]);
+
 
             $("#temp1").text("Temperature (F): " + response.list[0].main.temp);
             $("#hum1").text("Humidity: " + response.list[0].main.humidity);
