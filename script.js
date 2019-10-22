@@ -3,11 +3,26 @@ const APIKey = "a4af8bd3c9453f28d775a17a4db79327";
 const APIKeyOpenCage = "44188c039a434944afbe3ebfd7112f4d";
 var lat;
 var lon;
-// navigator.geolocation.getCurrentPosition(function (position) {
+var cityHistory = localStorage.getItem("cityhistory");
+if (cityHistory === null) {
+    cityHistory = [];
+
+}
+else {
+    console.log(cityHistory);
+    cityHistory = JSON.parse(cityHistory);
+for (let index = 0; index < cityHistory.length; index++) {
+    let city = cityHistory[index];
+    $("#cityhistory").prepend(`<li class="list-group-item">${city}</li>`);
+    
+}
+}
+
 //     lat = position.coords.latitude;
 //     lon = position.coords.longitude;
 
-// });
+// });/ navigator.geolocation.getCurrentPosition(function (position) {
+//
 var d = new Date();
 var weekday = new Array(7);
 weekday[0] = "Sunday";
@@ -25,8 +40,11 @@ console.log(n);
 document.getElementById("btn").addEventListener("click", query);
 
 function query() {
-document.getElementById("weatherresponse").style.display="";
+    document.getElementById("weatherresponse").style.display = "";
     var city = document.getElementById("citysearch").value;
+    cityHistory.push(city);
+    localStorage.setItem("cityhistory", JSON.stringify(cityHistory));
+    $("#cityhistory").prepend(`<li class="list-group-item">${city}</li>`);
     var queryURLLatLng = "https://api.opencagedata.com/geocode/v1/json?q=" + city + "&key=" + APIKeyOpenCage;
     $.ajax({
         url: queryURLLatLng,
